@@ -5,7 +5,8 @@ import html, sys
 CONFIG = {
     "NAME": "Valmir Araújo de Lima",
     "EMAIL": "{{EMAIL}}",      # e-mail público de contato para privacidade
-    "COUNTRY": "{{COUNTRY}}",  # país de residência (lei aplicável)
+    "BUSINESS": "{{NOME DA EMPRESA}}",  # nome da empresa (enkeltpersonforetak)
+    "ORGNR": "{{ORG.NR}}",              # organisasjonsnummer (9 dígitos, Brønnøysundregistrene)
     "DATE": "2026-09-20",
 }
 
@@ -15,7 +16,7 @@ L = {}
 L["pt"] = dict(
  lang="pt-BR", label="Português", title="Sextant — Privacidade e Termos", updated="Atualizado em",
  privacy=("Política de Privacidade", [
-  ("1. Quem somos", ["O Sextant é um aplicativo náutico (mapa de barcos, peças e serviços, ferramentas de navegação e diário de bordo). O responsável pelo tratamento dos dados é {NAME}, pessoa física, {COUNTRY}. Contato para assuntos de privacidade: {EMAIL}."]),
+  ("1. Quem somos", ["O Sextant é um aplicativo náutico (mapa de barcos, peças e serviços, ferramentas de navegação e diário de bordo). O responsável pelo tratamento dos dados é {NAME}, {BUSINESS} (org. nº {ORGNR}), {COUNTRY}. Contato para assuntos de privacidade: {EMAIL}."]),
   ("2. Dados que tratamos", [("ul", [
     "Conta: e-mail e senha (ou login com Google), nome e foto de perfil, número de WhatsApp (opcional).",
     "Contato de emergência (opcional): nome, telefone e número de emergência. O app nunca envia isso sozinho: só monta uma mensagem quando VOCÊ toca em “Pedir ajuda”.",
@@ -61,14 +62,14 @@ L["pt"] = dict(
   ("4. Compra e venda", ["O Sextant apenas conecta pessoas e mostra anúncios. Não somos parte das negociações, não garantimos os anúncios, preços ou a conduta de vendedores. Confira o barco, os documentos e o vendedor antes de pagar."]),
   ("5. Links de afiliados", ["Alguns links para lojas podem gerar comissão ao Sextant, sem custo extra para você. Quando isso ocorrer, será indicado no app."]),
   ("6. Disponibilidade e responsabilidade", ["O app é oferecido “como está”. Na máxima extensão permitida pela lei, não nos responsabilizamos por danos decorrentes do uso ou da indisponibilidade do app. Isso não limita direitos que a lei do consumidor garante e que não podem ser excluídos."]),
-  ("7. Lei aplicável", ["Estes termos seguem as leis de {COUNTRY}, sem prejuízo dos direitos do consumidor do seu país."]),
-  ("8. Contato", ["{NAME} — {EMAIL}"]),
+  ("7. Lei aplicável", ["Estes termos seguem a lei norueguesa, sem prejuízo dos direitos do consumidor do seu país."]),
+  ("8. Contato", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
  ]))
 
 L["en"] = dict(
  lang="en", label="English", title="Sextant — Privacy & Terms", updated="Last updated",
  privacy=("Privacy Policy", [
-  ("1. Who we are", ["Sextant is a nautical app (map of boats, parts and services, navigation tools and a logbook). The data controller is {NAME}, an individual, {COUNTRY}. Privacy contact: {EMAIL}."]),
+  ("1. Who we are", ["Sextant is a nautical app (map of boats, parts and services, navigation tools and a logbook). The data controller is {NAME}, {BUSINESS} (org. no. {ORGNR}), {COUNTRY}. Privacy contact: {EMAIL}."]),
   ("2. Data we process", [("ul", [
     "Account: e-mail and password (or Google sign-in), name and profile photo, WhatsApp number (optional).",
     "Emergency contact (optional): name, phone and emergency number. The app never sends this by itself: it only prepares a message when YOU tap “Ask for help”.",
@@ -114,14 +115,14 @@ L["en"] = dict(
   ("4. Buying and selling", ["Sextant only connects people and displays listings. We are not a party to any deal and do not guarantee listings, prices or sellers’ conduct. Check the boat, its documents and the seller before you pay."]),
   ("5. Affiliate links", ["Some links to shops may earn Sextant a commission at no extra cost to you. This will be indicated in the app."]),
   ("6. Availability and liability", ["The app is provided “as is”. To the maximum extent permitted by law we are not liable for damages arising from use or unavailability of the app. This does not limit consumer rights that cannot be excluded by law."]),
-  ("7. Governing law", ["These terms are governed by the laws of {COUNTRY}, without prejudice to your consumer rights in your country."]),
-  ("8. Contact", ["{NAME} — {EMAIL}"]),
+  ("7. Governing law", ["These terms are governed by Norwegian law, without prejudice to your consumer rights in your country."]),
+  ("8. Contact", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
  ]))
 
 L["no"] = dict(
  lang="nb", label="Norsk", title="Sextant — Personvern og vilkår", updated="Sist oppdatert",
  privacy=("Personvernerklæring", [
-  ("1. Hvem vi er", ["Sextant er en nautisk app (kart over båter, deler og tjenester, navigasjonsverktøy og loggbok). Behandlingsansvarlig er {NAME}, privatperson, {COUNTRY}. Kontakt for personvern: {EMAIL}."]),
+  ("1. Hvem vi er", ["Sextant er en nautisk app (kart over båter, deler og tjenester, navigasjonsverktøy og loggbok). Behandlingsansvarlig er {NAME}, {BUSINESS} (org.nr. {ORGNR}), {COUNTRY}. Kontakt for personvern: {EMAIL}."]),
   ("2. Data vi behandler", [("ul", [
     "Konto: e-post og passord (eller Google-innlogging), navn og profilbilde, WhatsApp-nummer (valgfritt).",
     "Nødkontakt (valgfritt): navn, telefon og nødnummer. Appen sender aldri dette av seg selv: den lager bare en melding når DU trykker «Be om hjelp».",
@@ -167,8 +168,8 @@ L["no"] = dict(
   ("4. Kjøp og salg", ["Sextant kobler bare sammen folk og viser annonser. Vi er ikke part i noen avtale og garanterer ikke for annonser, priser eller selgeres oppførsel. Sjekk båten, dokumentene og selgeren før du betaler."]),
   ("5. Affiliate-lenker", ["Enkelte lenker til butikker kan gi Sextant provisjon uten ekstra kostnad for deg. Dette vil framgå i appen."]),
   ("6. Tilgjengelighet og ansvar", ["Appen leveres «som den er». I den grad loven tillater det, er vi ikke ansvarlige for skade som følge av bruk eller utilgjengelighet. Dette begrenser ikke forbrukerrettigheter som ikke kan utelukkes ved lov."]),
-  ("7. Gjeldende lov", ["Vilkårene reguleres av lovene i {COUNTRY}, uten at det berører dine forbrukerrettigheter i ditt land."]),
-  ("8. Kontakt", ["{NAME} — {EMAIL}"]),
+  ("7. Gjeldende lov", ["Vilkårene reguleres av norsk rett, uten at det berører dine forbrukerrettigheter i ditt land."]),
+  ("8. Kontakt", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
  ]))
 
 CSS = "body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:760px;margin:0 auto;padding:24px 16px 64px;line-height:1.6;color:#1a2b3c;background:#fff}h1{color:#1e3d59;font-size:26px}h2{color:#1e3d59;margin-top:40px;border-bottom:2px solid #e2e8f0;padding-bottom:6px}h3{margin-top:24px;font-size:17px}nav a{margin-right:12px}small{color:#64748b}li{margin:6px 0}@media(prefers-color-scheme:dark){body{background:#0f1720;color:#dbe4ee}h1,h2{color:#9cc4e4}h2{border-color:#2c4a68}small{color:#8fa6bd}a{color:#7ab8e8}}"
@@ -190,9 +191,10 @@ def render_section(title, sections, cfg, anchor):
     return "\n".join(parts)
 
 def build():
-    cfg = dict(CONFIG)
     nav = " ".join(f'<a href="{c}.html">{L[c]["label"]}</a>' for c in L)
     for code, d in L.items():
+        cfg = dict(CONFIG)
+        cfg["COUNTRY"] = {"pt": "Noruega", "en": "Norway", "no": "Norge"}[code]
         priv_title, priv = d["privacy"]
         terms_title, terms = d["terms"]
         page = f'''<!doctype html><html lang="{d["lang"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(d["title"])}</title><style>{CSS}</style></head><body>
@@ -207,7 +209,7 @@ def build():
     open("index.html", "w", encoding="utf-8").write(
         f'<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=en.html"><title>Sextant</title></head><body><p><a href="en.html">Sextant</a> — ' +
         " · ".join(f'<a href="{c}.html">{L[c]["label"]}</a>' for c in L) + "</p></body></html>")
-    left = [k for k, v in cfg.items() if "{{" in v]
+    left = [k for k, v in CONFIG.items() if "{{" in v]
     print("gerado. Pendente de preencher:", left or "nada")
 
 if __name__ == "__main__":
