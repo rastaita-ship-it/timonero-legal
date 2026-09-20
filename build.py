@@ -5,8 +5,8 @@ import html, sys
 CONFIG = {
     "NAME": "Valmir Araújo de Lima",
     "EMAIL": "{{EMAIL}}",      # e-mail público de contato para privacidade
-    "BUSINESS": "{{NOME DA EMPRESA}}",  # nome da empresa (enkeltpersonforetak)
-    "ORGNR": "{{ORG.NR}}",              # organisasjonsnummer (9 dígitos, Brønnøysundregistrene)
+    "BUSINESS": "Rastatur Valmir Araujo de Lima",  # nome da empresa (enkeltpersonforetak)
+    "ORGNR": "913177681",             # organisasjonsnummer (9 dígitos, Brønnøysundregistrene)
     "DATE": "2026-09-20",
 }
 
