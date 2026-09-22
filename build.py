@@ -172,6 +172,112 @@ L["no"] = dict(
   ("8. Kontakt", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
  ]))
 
+L["sv"] = dict(
+ lang="sv", label="Svenska", title="Timonero — Integritet och villkor", updated="Senast uppdaterad",
+ privacy=("Integritetspolicy", [
+  ("1. Vilka vi är", ["Timonero är en nautisk app (karta över båtar, delar och tjänster, navigeringsverktyg och loggbok). Personuppgiftsansvarig är {NAME}, {BUSINESS} (org.nr {ORGNR}), {COUNTRY}. Kontakt för integritetsfrågor: {EMAIL}."]),
+  ("2. Uppgifter vi behandlar", [("ul", [
+    "Konto: e-post och lösenord (eller Google-inloggning), namn och profilbild, WhatsApp-nummer (valfritt).",
+    "Nödkontakt (valfritt): namn, telefon och nödnummer. Appen skickar aldrig detta av sig själv: den skapar bara ett meddelande när DU trycker på «Be om hjälp».",
+    "Position: används för att visa din position på kartan, väder, tidvatten, kompass, ankarlarm och Man över bord. Den läses bara när du använder dessa funktioner och appen är öppen. Registrerade rutter sparas på ditt konto. Flottans live-position skickas bara om du aktiverar delning, och raderas automatiskt efter 24 timmar.",
+    "Annonser du publicerar: titel, pris, beskrivning, plats och bilder.",
+    "Dina båtdata: loggbok, inventarie, underhållspåminnelser, favoriter och sparade sökningar.",
+    "Notiser: en enhetskod (push-token) för att avisera om sparade sökningar.",
+    "Rapporter och blockeringar du gör.",
+    "Vi använder inte tredjepartsannonser eller spårning mellan appar."])]),
+  ("3. Varför vi använder dem (rättslig grund)", [("ul", [
+    "För att leverera tjänsten du bad om (avtal): konto, annonser, loggbok, flotta, aviseringar.",
+    "Med ditt samtycke: position, nödkontakt, aviseringar och delning av position med flottan. Du kan när som helst återkalla samtycket i inställningarna.",
+    "Berättigat intresse: säkerhet, förebyggande av missbruk och moderering."])]),
+  ("4. Vilka vi delar med", [
+    "Vi säljer inte dina uppgifter. Vi använder leverantörer för att driva appen:",
+    ("ul", [
+    "Supabase (databas, inloggning och filer) — servrar i EU (Stockholm, Sverige).",
+    "Expo (push-aviseringar).",
+    "Anthropic (AI-analys av överfart): vi skickar endast annonsens titel, år, längd, pris och text — aldrig personuppgifter från ditt konto.",
+    "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) och OpenSeaMap: tar emot ungefärliga koordinater för väder, tidvatten, platsnamn och nautiska punkter.",
+    "Apple Kartor / Google Maps (kartvisning) och Google (inloggning, om du väljer det).",
+    "Andra användare: det du publicerar i annonser är offentligt. Flottans medlemmar ser din position om du delar den."]),
+    "Annonser från andra webbplatser (Finn.no, Blocket, DBA, Tori med flera) visas som en sammanfattning av fakta (pris, år, storlek, plats) med länk till originalet; vi sparar inte bilder eller texter därifrån."]),
+  ("5. Hur länge vi sparar", [("ul", [
+    "Konto- och båtdata: tills du raderar kontot.",
+    "Flottans live-position: 24 timmar.",
+    "Leverantörens säkerhetskopior kan behålla raderad data i upp till cirka 30 dagar innan den tas bort.",
+    "Rapporter: så länge det behövs för gemenskapens säkerhet."])]),
+  ("6. Dina rättigheter", [
+    "Du kan begära tillgång, rättelse, radering, begränsning, dataportabilitet och invända, samt klaga hos din dataskyddsmyndighet (t.ex. Integritetsskyddsmyndigheten i Sverige eller Datatilsynet i Norge).",
+    "För att radera allt: i appen, Profil → «Radera mitt konto». Det raderar konto, annonser, loggbok, rutter, flotta och bilder. För andra förfrågningar, skriv till {EMAIL}."]),
+  ("7. Barn", ["Timonero är inte avsett för personer under 16 år."]),
+  ("8. Säkerhet", ["Vi använder krypterad anslutning och åtkomstregler per användare i databasen. Inget system är 100 % säkert; om en incident påverkar dig meddelar vi dig enligt lagens krav."]),
+  ("9. Ändringar", ["Vi kan uppdatera denna policy. Datumet ovan visar aktuell version; väsentliga ändringar meddelas i appen."]),
+ ]),
+ terms=("Användarvillkor", [
+  ("1. Godkännande", ["Genom att använda Timonero godkänner du dessa villkor och integritetspolicyn."]),
+  ("2. Inte ett officiellt navigeringsinstrument", ["Timonero är ett hjälpmedel för navigering och vardagen ombord. Det ersätter INTE officiella sjökort, instrument ombord, officiella prognoser eller gott sjömanskap. Prognos, tidvatten, kompass, larm (ankare, Man över bord), AI-analys och position kan fela eller vara felaktiga. Vid nödläge till sjöss, använd VHF kanal 16 och det lokala nödnumret. Hjälp-knappen kontaktar INTE kustbevakningen automatiskt."]),
+  ("3. Användarinnehåll och uppförande", [("ul", [
+    "Du ansvarar för det du publicerar och bekräftar att du har rätt att använda texten och bilderna.",
+    "Nolltolerans mot stötande eller olagligt innehåll, bedrägerier, skräppost, falska annonser eller sådant som kränker andras rättigheter.",
+    "Du kan anmäla annonser och blockera säljare i appen. Vi granskar anmälningar och kan ta bort innehåll och stänga konton som bryter mot villkoren."])]),
+  ("4. Köp och försäljning", ["Timonero kopplar bara samman människor och visar annonser. Vi är inte part i någon affär och garanterar inte annonser, priser eller säljares uppförande. Kontrollera båten, dokumenten och säljaren innan du betalar."]),
+  ("5. Affiliate-länkar", ["Vissa länkar till butiker kan ge Timonero provision utan extra kostnad för dig. Detta kommer att anges i appen."]),
+  ("6. Tillgänglighet och ansvar", ["Appen tillhandahålls «i befintligt skick». I den utsträckning lagen tillåter ansvarar vi inte för skador till följd av användning eller otillgänglighet. Detta begränsar inte konsumenträttigheter som inte kan uteslutas enligt lag."]),
+  ("7. Tillämplig lag", ["Villkoren regleras av norsk rätt, utan att det påverkar dina konsumenträttigheter i ditt land."]),
+  ("8. Kontakt", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
+ ]))
+
+L["da"] = dict(
+ lang="da", label="Dansk", title="Timonero — Privatliv og vilkår", updated="Sidst opdateret",
+ privacy=("Privatlivspolitik", [
+  ("1. Hvem vi er", ["Timonero er en nautisk app (kort over både, dele og tjenester, navigationsværktøjer og logbog). Dataansvarlig er {NAME}, {BUSINESS} (CVR/org.nr. {ORGNR}), {COUNTRY}. Kontakt vedrørende privatliv: {EMAIL}."]),
+  ("2. Data vi behandler", [("ul", [
+    "Konto: e-mail og adgangskode (eller Google-login), navn og profilbillede, WhatsApp-nummer (valgfrit).",
+    "Nødkontakt (valgfrit): navn, telefon og nødnummer. Appen sender aldrig dette af sig selv: den udarbejder kun en besked, når DU trykker på «Bed om hjælp».",
+    "Position: bruges til at vise din position på kortet, vejr, tidevand, kompas, ankeralarm og Mand over bord. Den læses kun, når du bruger disse funktioner, og appen er åben. Registrerede ruter gemmes på din konto. Flådens live-position sendes kun, hvis du slår deling til, og slettes automatisk efter 24 timer.",
+    "Annoncer du udgiver: titel, pris, beskrivelse, sted og billeder.",
+    "Dine båddata: logbog, inventar, vedligeholdelsespåmindelser, favoritter og gemte søgninger.",
+    "Notifikationer: en enhedskode (push-token) til at give besked om gemte søgninger.",
+    "Anmeldelser og blokeringer du foretager.",
+    "Vi bruger ikke tredjeparts reklamer eller sporing på tværs af apps."])]),
+  ("3. Hvorfor vi bruger dem (retsgrundlag)", [("ul", [
+    "For at levere den tjeneste, du har bedt om (aftale): konto, annoncer, logbog, flåde, notifikationer.",
+    "Med dit samtykke: position, nødkontakt, notifikationer og deling af position med flåden. Du kan til enhver tid trække samtykket tilbage i indstillingerne.",
+    "Legitim interesse: sikkerhed, forebyggelse af misbrug og moderation."])]),
+  ("4. Hvem vi deler med", [
+    "Vi sælger ikke dine data. Vi bruger leverandører til at drive appen:",
+    ("ul", [
+    "Supabase (database, login og filer) — servere i EU (Stockholm, Sverige).",
+    "Expo (push-notifikationer).",
+    "Anthropic (AI-analyse af overfart): vi sender kun annoncens titel, år, længde, pris og tekst — aldrig personoplysninger fra din konto.",
+    "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) og OpenSeaMap: modtager omtrentlige koordinater til vejr, tidevand, stednavn og nautiske punkter.",
+    "Apple Kort / Google Maps (kortvisning) og Google (login, hvis du vælger det).",
+    "Andre brugere: det du udgiver i annoncer er offentligt. Flådens medlemmer ser din position, hvis du deler den."]),
+    "Annoncer fra andre hjemmesider (Finn.no, Blocket, DBA, Tori m.fl.) vises som et resumé af fakta (pris, år, størrelse, sted) med link til originalen; vi gemmer ikke billeder eller tekster derfra."]),
+  ("5. Hvor længe vi opbevarer", [("ul", [
+    "Konto- og båddata: indtil du sletter kontoen.",
+    "Flådens live-position: 24 timer.",
+    "Leverandørens sikkerhedskopier kan opbevare slettede data i op til ca. 30 dage, før de fjernes.",
+    "Anmeldelser: så længe det er nødvendigt for fællesskabets sikkerhed."])]),
+  ("6. Dine rettigheder", [
+    "Du kan anmode om indsigt, berigtigelse, sletning, begrænsning, dataportabilitet og gøre indsigelse samt klage til din databeskyttelsesmyndighed (f.eks. Datatilsynet i Danmark eller Norge).",
+    "For at slette alt: i appen, Profil → «Slet min konto». Det sletter konto, annoncer, logbog, ruter, flåde og billeder. For andre henvendelser, skriv til {EMAIL}."]),
+  ("7. Børn", ["Timonero er ikke beregnet til personer under 16 år."]),
+  ("8. Sikkerhed", ["Vi bruger krypteret forbindelse og adgangsregler pr. bruger i databasen. Intet system er 100 % sikkert; hvis en hændelse påvirker dig, giver vi besked som loven kræver."]),
+  ("9. Ændringer", ["Vi kan opdatere denne politik. Datoen ovenfor viser den aktuelle version; væsentlige ændringer meddeles i appen."]),
+ ]),
+ terms=("Brugsvilkår", [
+  ("1. Accept", ["Ved at bruge Timonero accepterer du disse vilkår og privatlivspolitikken."]),
+  ("2. Ikke et officielt navigationsinstrument", ["Timonero er en hjælp til navigation og hverdagen om bord. Det erstatter IKKE officielle søkort, instrumenter om bord, officielle vejrudsigter eller godt sømandskab. Vejrudsigt, tidevand, kompas, alarmer (anker, Mand over bord), AI-analyse og position kan svigte eller være unøjagtige. Ved nødsituation på havet, brug VHF kanal 16 og det lokale nødnummer. Hjælp-knappen kontakter IKKE kystvagten automatisk."]),
+  ("3. Brugerindhold og adfærd", [("ul", [
+    "Du er ansvarlig for det, du udgiver, og bekræfter, at du har ret til at bruge teksten og billederne.",
+    "Nultolerance over for stødende eller ulovligt indhold, svindel, spam, falske annoncer eller krænkelse af andres rettigheder.",
+    "Du kan anmelde annoncer og blokere sælgere i appen. Vi gennemgår anmeldelser og kan fjerne indhold og lukke konti, der overtræder vilkårene."])]),
+  ("4. Køb og salg", ["Timonero forbinder blot mennesker og viser annoncer. Vi er ikke part i nogen aftale og garanterer ikke annoncer, priser eller sælgeres adfærd. Tjek båden, dokumenterne og sælgeren, før du betaler."]),
+  ("5. Affiliate-links", ["Nogle links til butikker kan give Timonero provision uden ekstra omkostning for dig. Dette vil fremgå i appen."]),
+  ("6. Tilgængelighed og ansvar", ["Appen leveres «som den er». I det omfang loven tillader det, er vi ikke ansvarlige for skader som følge af brug eller utilgængelighed. Dette begrænser ikke forbrugerrettigheder, der ikke kan udelukkes ved lov."]),
+  ("7. Gældende lov", ["Vilkårene er underlagt norsk ret, uden at det berører dine forbrugerrettigheder i dit land."]),
+  ("8. Kontakt", ["{NAME} — {BUSINESS} (org. {ORGNR}) — {EMAIL}"]),
+ ]))
+
 CSS = "body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:760px;margin:0 auto;padding:24px 16px 64px;line-height:1.6;color:#1a2b3c;background:#fff}h1{color:#1e3d59;font-size:26px}h2{color:#1e3d59;margin-top:40px;border-bottom:2px solid #e2e8f0;padding-bottom:6px}h3{margin-top:24px;font-size:17px}nav a{margin-right:12px}small{color:#64748b}li{margin:6px 0}@media(prefers-color-scheme:dark){body{background:#0f1720;color:#dbe4ee}h1,h2{color:#9cc4e4}h2{border-color:#2c4a68}small{color:#8fa6bd}a{color:#7ab8e8}}"
 
 def render_block(items, cfg):
@@ -194,7 +300,7 @@ def build():
     nav = " ".join(f'<a href="{c}.html">{L[c]["label"]}</a>' for c in L)
     for code, d in L.items():
         cfg = dict(CONFIG)
-        cfg["COUNTRY"] = {"pt": "Noruega", "en": "Norway", "no": "Norge"}[code]
+        cfg["COUNTRY"] = {"pt": "Noruega", "en": "Norway", "no": "Norge", "sv": "Norge", "da": "Norge"}[code]
         priv_title, priv = d["privacy"]
         terms_title, terms = d["terms"]
         page = f'''<!doctype html><html lang="{d["lang"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(d["title"])}</title><style>{CSS}</style></head><body>
