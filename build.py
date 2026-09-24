@@ -35,7 +35,7 @@ L["pt"] = dict(
     ("ul", [
     "Supabase (hospedagem do banco de dados, login e arquivos) — servidores na UE (Estocolmo, Suécia).",
     "Expo (envio de notificações push).",
-    "Anthropic (análise de travessia por IA): enviamos apenas o título, ano, comprimento, preço e texto do anúncio — nunca dados pessoais da sua conta.",
+    "Anthropic, nos Estados Unidos (análise de travessia por IA): enviamos apenas o título, ano, comprimento, preço e o texto do anúncio — nunca dados pessoais da sua conta. Quando o anúncio vem de outro site, esse texto pode ter sido escrito por um vendedor que não é usuário do Timonero; esse envio segue as cláusulas contratuais padrão da União Europeia para transferência internacional de dados.",
     "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) e OpenSeaMap: recebem coordenadas aproximadas para previsão do tempo, maré, nome do local e pontos náuticos.",
     "Apple Mapas / Google Maps (exibição do mapa) e Google (login, se você escolher).",
     "Outros usuários: o que você publica em anúncios é público. Membros da sua frota veem sua posição se você compartilhar."]),
@@ -58,7 +58,7 @@ L["pt"] = dict(
   ("3. Conteúdo de usuários e conduta", [("ul", [
     "Você é responsável pelo que publica e declara ter direito de usar textos e fotos.",
     "Tolerância zero para conteúdo ofensivo, ilegal, golpes, spam, anúncios falsos ou que violem direitos de terceiros.",
-    "Você pode denunciar anúncios e bloquear vendedores no app. Analisamos denúncias e podemos remover conteúdo e encerrar contas que violem estes termos."])]),
+    "Você pode denunciar anúncios e bloquear vendedores no app. Analisamos denúncias e podemos remover conteúdo e encerrar contas que violem estes termos. Se você excluir sua conta, as denúncias que você fez são excluídas junto — se estiver com uma denúncia em análise, prefira aguardar antes de excluir a conta."])]),
   ("4. Compra e venda", ["O Timonero apenas conecta pessoas e mostra anúncios. Não somos parte das negociações, não garantimos os anúncios, preços ou a conduta de vendedores. Confira o barco, os documentos e o vendedor antes de pagar."]),
   ("5. Links de afiliados", ["Alguns links para lojas podem gerar comissão ao Timonero, sem custo extra para você. Quando isso ocorrer, será indicado no app."]),
   ("6. Disponibilidade e responsabilidade", ["O app é oferecido “como está”. Na máxima extensão permitida pela lei, não nos responsabilizamos por danos decorrentes do uso ou da indisponibilidade do app. Isso não limita direitos que a lei do consumidor garante e que não podem ser excluídos."]),
@@ -88,7 +88,7 @@ L["en"] = dict(
     ("ul", [
     "Supabase (database, sign-in and file hosting) — servers in the EU (Stockholm, Sweden).",
     "Expo (push notification delivery).",
-    "Anthropic (AI crossing analysis): we send only a listing’s title, year, length, price and text — never personal data from your account.",
+    "Anthropic, in the United States (AI crossing analysis): we send only a listing’s title, year, length, price and text — never personal data from your account. When the listing comes from another site, that text may have been written by a seller who is not a Timonero user; this transfer follows the EU Standard Contractual Clauses for international data transfers.",
     "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) and OpenSeaMap: receive approximate coordinates for weather, tide, place name and nautical points.",
     "Apple Maps / Google Maps (map display) and Google (sign-in, if you choose it).",
     "Other users: what you publish in listings is public. Fleet members see your position if you share it."]),
@@ -111,7 +111,7 @@ L["en"] = dict(
   ("3. User content and conduct", [("ul", [
     "You are responsible for what you publish and confirm you have the right to use the text and photos.",
     "Zero tolerance for offensive or illegal content, scams, spam, fake listings or anything that infringes others’ rights.",
-    "You can report listings and block sellers in the app. We review reports and may remove content and close accounts that break these terms."])]),
+    "You can report listings and block sellers in the app. We review reports and may remove content and close accounts that break these terms. If you delete your account, any reports you filed are deleted along with it — if a report of yours is still under review, consider waiting before deleting your account."])]),
   ("4. Buying and selling", ["Timonero only connects people and displays listings. We are not a party to any deal and do not guarantee listings, prices or sellers’ conduct. Check the boat, its documents and the seller before you pay."]),
   ("5. Affiliate links", ["Some links to shops may earn Timonero a commission at no extra cost to you. This will be indicated in the app."]),
   ("6. Availability and liability", ["The app is provided “as is”. To the maximum extent permitted by law we are not liable for damages arising from use or unavailability of the app. This does not limit consumer rights that cannot be excluded by law."]),
@@ -141,7 +141,7 @@ L["no"] = dict(
     ("ul", [
     "Supabase (database, innlogging og filer) — servere i EU (Stockholm, Sverige).",
     "Expo (push-varsler).",
-    "Anthropic (KI-analyse av overfart): vi sender kun annonsens tittel, år, lengde, pris og tekst — aldri personopplysninger fra kontoen din.",
+    "Anthropic, i USA (KI-analyse av overfart): vi sender kun annonsens tittel, år, lengde, pris og tekst — aldri personopplysninger fra kontoen din. Når annonsen kommer fra et annet nettsted, kan teksten være skrevet av en selger som ikke er Timonero-bruker; denne overføringen følger EUs standard personvernbestemmelser for internasjonal dataoverføring.",
     "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) og OpenSeaMap: mottar omtrentlige koordinater for vær, tidevann, stedsnavn og nautiske punkter.",
     "Apple Kart / Google Maps (kartvisning) og Google (innlogging, hvis du velger det).",
     "Andre brukere: det du publiserer i annonser er offentlig. Flåtemedlemmer ser posisjonen din hvis du deler den."]),
@@ -164,7 +164,7 @@ L["no"] = dict(
   ("3. Brukerinnhold og oppførsel", [("ul", [
     "Du er ansvarlig for det du publiserer og bekrefter at du har rett til å bruke tekst og bilder.",
     "Nulltoleranse for støtende eller ulovlig innhold, svindel, spam, falske annonser eller brudd på andres rettigheter.",
-    "Du kan rapportere annonser og blokkere selgere i appen. Vi går gjennom rapporter og kan fjerne innhold og stenge kontoer som bryter vilkårene."])]),
+    "Du kan rapportere annonser og blokkere selgere i appen. Vi går gjennom rapporter og kan fjerne innhold og stenge kontoer som bryter vilkårene. Hvis du sletter kontoen din, slettes rapportene du har sendt inn samtidig — har du en rapport til vurdering, bør du vente med å slette kontoen."])]),
   ("4. Kjøp og salg", ["Timonero kobler bare sammen folk og viser annonser. Vi er ikke part i noen avtale og garanterer ikke for annonser, priser eller selgeres oppførsel. Sjekk båten, dokumentene og selgeren før du betaler."]),
   ("5. Affiliate-lenker", ["Enkelte lenker til butikker kan gi Timonero provisjon uten ekstra kostnad for deg. Dette vil framgå i appen."]),
   ("6. Tilgjengelighet og ansvar", ["Appen leveres «som den er». I den grad loven tillater det, er vi ikke ansvarlige for skade som følge av bruk eller utilgjengelighet. Dette begrenser ikke forbrukerrettigheter som ikke kan utelukkes ved lov."]),
@@ -194,7 +194,7 @@ L["sv"] = dict(
     ("ul", [
     "Supabase (databas, inloggning och filer) — servrar i EU (Stockholm, Sverige).",
     "Expo (push-aviseringar).",
-    "Anthropic (AI-analys av överfart): vi skickar endast annonsens titel, år, längd, pris och text — aldrig personuppgifter från ditt konto.",
+    "Anthropic, i USA (AI-analys av överfart): vi skickar endast annonsens titel, år, längd, pris och text — aldrig personuppgifter från ditt konto. När annonsen kommer från en annan webbplats kan texten ha skrivits av en säljare som inte är Timonero-användare; denna överföring följer EU:s standardavtalsklausuler för internationell dataöverföring.",
     "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) och OpenSeaMap: tar emot ungefärliga koordinater för väder, tidvatten, platsnamn och nautiska punkter.",
     "Apple Kartor / Google Maps (kartvisning) och Google (inloggning, om du väljer det).",
     "Andra användare: det du publicerar i annonser är offentligt. Flottans medlemmar ser din position om du delar den."]),
@@ -217,7 +217,7 @@ L["sv"] = dict(
   ("3. Användarinnehåll och uppförande", [("ul", [
     "Du ansvarar för det du publicerar och bekräftar att du har rätt att använda texten och bilderna.",
     "Nolltolerans mot stötande eller olagligt innehåll, bedrägerier, skräppost, falska annonser eller sådant som kränker andras rättigheter.",
-    "Du kan anmäla annonser och blockera säljare i appen. Vi granskar anmälningar och kan ta bort innehåll och stänga konton som bryter mot villkoren."])]),
+    "Du kan anmäla annonser och blockera säljare i appen. Vi granskar anmälningar och kan ta bort innehåll och stänga konton som bryter mot villkoren. Om du raderar ditt konto raderas även de anmälningar du har gjort — har du en anmälan under granskning bör du vänta med att radera kontot."])]),
   ("4. Köp och försäljning", ["Timonero kopplar bara samman människor och visar annonser. Vi är inte part i någon affär och garanterar inte annonser, priser eller säljares uppförande. Kontrollera båten, dokumenten och säljaren innan du betalar."]),
   ("5. Affiliate-länkar", ["Vissa länkar till butiker kan ge Timonero provision utan extra kostnad för dig. Detta kommer att anges i appen."]),
   ("6. Tillgänglighet och ansvar", ["Appen tillhandahålls «i befintligt skick». I den utsträckning lagen tillåter ansvarar vi inte för skador till följd av användning eller otillgänglighet. Detta begränsar inte konsumenträttigheter som inte kan uteslutas enligt lag."]),
@@ -247,7 +247,7 @@ L["da"] = dict(
     ("ul", [
     "Supabase (database, login og filer) — servere i EU (Stockholm, Sverige).",
     "Expo (push-notifikationer).",
-    "Anthropic (AI-analyse af overfart): vi sender kun annoncens titel, år, længde, pris og tekst — aldrig personoplysninger fra din konto.",
+    "Anthropic, i USA (AI-analyse af overfart): vi sender kun annoncens titel, år, længde, pris og tekst — aldrig personoplysninger fra din konto. Når annoncen kommer fra en anden hjemmeside, kan teksten være skrevet af en sælger, der ikke er Timonero-bruger; denne overførsel følger EUs standardkontraktbestemmelser for international dataoverførsel.",
     "Open-Meteo, Kartverket, OpenStreetMap (Nominatim/Overpass) og OpenSeaMap: modtager omtrentlige koordinater til vejr, tidevand, stednavn og nautiske punkter.",
     "Apple Kort / Google Maps (kortvisning) og Google (login, hvis du vælger det).",
     "Andre brugere: det du udgiver i annoncer er offentligt. Flådens medlemmer ser din position, hvis du deler den."]),
@@ -270,7 +270,7 @@ L["da"] = dict(
   ("3. Brugerindhold og adfærd", [("ul", [
     "Du er ansvarlig for det, du udgiver, og bekræfter, at du har ret til at bruge teksten og billederne.",
     "Nultolerance over for stødende eller ulovligt indhold, svindel, spam, falske annoncer eller krænkelse af andres rettigheder.",
-    "Du kan anmelde annoncer og blokere sælgere i appen. Vi gennemgår anmeldelser og kan fjerne indhold og lukke konti, der overtræder vilkårene."])]),
+    "Du kan anmelde annoncer og blokere sælgere i appen. Vi gennemgår anmeldelser og kan fjerne indhold og lukke konti, der overtræder vilkårene. Hvis du sletter din konto, slettes de anmeldelser, du har indgivet, også — har du en anmeldelse under behandling, bør du vente med at slette kontoen."])]),
   ("4. Køb og salg", ["Timonero forbinder blot mennesker og viser annoncer. Vi er ikke part i nogen aftale og garanterer ikke annoncer, priser eller sælgeres adfærd. Tjek båden, dokumenterne og sælgeren, før du betaler."]),
   ("5. Affiliate-links", ["Nogle links til butikker kan give Timonero provision uden ekstra omkostning for dig. Dette vil fremgå i appen."]),
   ("6. Tilgængelighed og ansvar", ["Appen leveres «som den er». I det omfang loven tillader det, er vi ikke ansvarlige for skader som følge af brug eller utilgængelighed. Dette begrænser ikke forbrugerrettigheder, der ikke kan udelukkes ved lov."]),
