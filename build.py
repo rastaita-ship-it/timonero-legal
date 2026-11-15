@@ -312,9 +312,7 @@ def build():
 {render_section(terms_title, terms, cfg, "terms")}
 </body></html>'''
         open(f"{code}.html", "w", encoding="utf-8").write(page)
-    open("index.html", "w", encoding="utf-8").write(
-        f'<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=en.html"><title>Timonero</title></head><body><p><a href="en.html">Timonero</a> — ' +
-        " · ".join(f'<a href="{c}.html">{L[c]["label"]}</a>' for c in L) + "</p></body></html>")
+    # index.html é a landing page (escrita à mão), não é gerada aqui
     left = [k for k, v in CONFIG.items() if "{{" in v]
     print("gerado. Pendente de preencher:", left or "nada")
 

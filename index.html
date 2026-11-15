@@ -1,1 +1,403 @@
-<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=en.html"><title>Timonero</title></head><body><p><a href="en.html">Timonero</a> — <a href="pt.html">Português</a> · <a href="en.html">English</a> · <a href="no.html">Norsk</a> · <a href="sv.html">Svenska</a> · <a href="da.html">Dansk</a></p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timonero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Timonero: anchor alarm, forecast, tides, celestial navigation and a logbook that writes itself.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a chart sheet — night-sea hero with live waves, then alternating phone + text rows, brass used only for marks and the one CTA */
+:root {
+  --paper: #EEF3F6;      /* chart paper */
+  --paper-2: #E1EAF0;
+  --ink: #0F2740;        /* navy from the icon */
+  --ink-soft: #49617A;
+  --brass: #94701F;      /* icon gold, darkened for text on paper */
+  --brass-hi: #E2BC5E;
+  --sea-1: #0F2740;
+  --sea-2: #173A5C;
+  --sea-3: #1F4D78;
+  --line: #C7D5DF;
+  --frame: #0F2740;
+  --on-sea: #EEF3F6;
+  --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1A2B; --paper-2: #10243A; --ink: #E4ECF2; --ink-soft: #9AB0C4;
+    --brass: #E2BC5E; --brass-hi: #F0D186; --sea-1: #07121F; --sea-2: #0C2034; --sea-3: #133251;
+    --line: #22405E; --frame: #1C3350; --on-sea: #E4ECF2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1A2B; --paper-2: #10243A; --ink: #E4ECF2; --ink-soft: #9AB0C4;
+  --brass: #E2BC5E; --brass-hi: #F0D186; --sea-1: #07121F; --sea-2: #0C2034; --sea-3: #133251;
+  --line: #22405E; --frame: #1C3350; --on-sea: #E4ECF2; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--brass-hi); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.mono { font-family: var(--mono); font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ── top bar ── */
+.bar { position: absolute; top: 0; left: 0; right: 0; z-index: 5; padding-top: env(safe-area-inset-top, 0px); color: var(--on-sea); }
+.bar .wrap { display: flex; align-items: center; gap: 16px; padding-block: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 24px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.brand img { width: 34px; height: 34px; border-radius: 8px; }
+.bar nav { margin-left: auto; display: flex; align-items: center; gap: 20px; }
+.bar nav a { text-decoration: none; font-weight: 700; font-size: 15px; opacity: .85; }
+.bar nav a:hover { opacity: 1; }
+.lang { appearance: none; background-color: rgba(255,255,255,.1); color: var(--on-sea); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 6px 30px 6px 12px; font: 700 14px var(--body); cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+.lang option { color: #0F2740; background: #fff; }
+@media (max-width: 640px) { .bar nav a.hide-sm { display: none; } }
+
+/* ── hero ── */
+.hero { position: relative; overflow: hidden; color: var(--on-sea); background: linear-gradient(180deg, var(--sea-1) 0%, var(--sea-2) 58%, var(--sea-3) 100%); }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero .wrap { position: relative; padding-block: 140px 220px; }
+.coords { color: var(--brass-hi); }
+.hero h1 { font: 800 clamp(56px, 11vw, 136px)/.9 var(--display); text-transform: uppercase; letter-spacing: .01em; margin: 18px 0 22px; max-width: 11ch; text-wrap: balance; }
+.hero p.lead { font-size: clamp(18px, 2.2vw, 21px); max-width: 34em; margin: 0 0 32px; opacity: .92; }
+.ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 999px; font: 700 16px var(--body); text-decoration: none; }
+.btn.primary { background: var(--brass-hi); color: #0F2740; }
+.btn.ghost { border: 1.5px solid rgba(255,255,255,.4); }
+.btn.ghost:hover { border-color: var(--on-sea); }
+.soon { display: block; font-size: 14px; opacity: .75; margin-top: 14px; }
+.rose { position: absolute; right: -120px; top: 60px; width: 520px; height: 520px; opacity: .14; color: var(--brass-hi); transform: rotate(var(--rot, 0deg)); pointer-events: none; }
+@media (max-width: 760px) { .rose { width: 360px; height: 360px; right: -160px; top: 40px; } .hero .wrap { padding-block: 120px 180px; } }
+
+/* ── features ── */
+.features { padding-block: 40px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 6vw, 88px); align-items: center; padding-block: 56px; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row.flip .shot { order: 2; }
+.row h2 { font: 800 clamp(38px, 5vw, 58px)/.95 var(--display); text-transform: uppercase; margin: 10px 0 16px; text-wrap: balance; }
+.row p { margin: 0; max-width: 32em; color: var(--ink-soft); font-size: 18px; }
+.row .mono { color: var(--brass); }
+.shot { display: flex; justify-content: center; gap: 18px; }
+.phone { width: min(270px, 100%); aspect-ratio: 414 / 896; border-radius: 34px; padding: 9px; background: var(--frame); box-shadow: 0 30px 60px -28px rgba(15,39,64,.55); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 26px; }
+.shot .phone:nth-child(2) { transform: translateY(34px); }
+.row:hover .phone:first-child { transform: translateY(-6px) rotate(-1deg); }
+@media (max-width: 760px) {
+  .row, .row.flip { grid-template-columns: 1fr; padding-block: 44px; }
+  .row.flip .shot { order: 0; }
+  .shot .phone { width: min(220px, 46%); }
+  .shot .phone:only-child { width: min(240px, 70%); }
+}
+
+/* ── more ── */
+.more { background: var(--paper-2); padding-block: 72px; }
+.more h2 { font: 800 clamp(34px, 4.5vw, 48px)/1 var(--display); text-transform: uppercase; margin: 0 0 32px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
+.grid h3 { font: 800 26px/1.05 var(--display); text-transform: uppercase; margin: 12px 0 8px; }
+.grid p { margin: 0; color: var(--ink-soft); }
+.grid .mono { color: var(--brass); }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ── closing ── */
+.close { padding-block: 80px 40px; }
+.close h2 { font: 800 clamp(44px, 7vw, 88px)/.92 var(--display); text-transform: uppercase; margin: 0 0 18px; max-width: 12ch; text-wrap: balance; }
+.close .soon { opacity: 1; color: var(--ink-soft); }
+.safety { margin: 48px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink-soft); font-size: 15px; max-width: 46em; }
+footer { border-top: 1px solid var(--line); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); color: var(--ink-soft); font-size: 15px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+footer .mail { font-family: var(--mono); font-size: 14px; user-select: all; }
+footer .sp { margin-left: auto; }
+
+/* load sequence */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
+  .rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .18s; } .rise.d3 { animation-delay: .3s; }
+  @keyframes rise { from { transform: translateY(18px); } to { transform: none; } }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="34" height="34">Timonero</a>
+    <nav>
+      <a class="hide-sm" href="#features" data-t="navFeatures">Features</a>
+      <a class="hide-sm" id="navPrivacy" href="en.html" data-t="navPrivacy">Privacy</a>
+      <label class="sr" for="lang" data-t="lang">Language</label>
+      <select id="lang" class="lang"></select>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <canvas id="sea" aria-hidden="true"></canvas>
+  <svg class="rose" id="rose" viewBox="-100 -100 200 200" aria-hidden="true" fill="none" stroke="currentColor">
+    <circle r="96" stroke-width=".6"/><circle r="84" stroke-width=".4"/><circle r="40" stroke-width=".4"/>
+    <g id="ticks" stroke-width=".5"></g>
+    <path d="M0-80 L8 0 L0 80 L-8 0Z M-80 0 L0-8 L80 0 L0 8Z" fill="currentColor" fill-opacity=".35" stroke-width=".6"/>
+    <path d="M0-80 L8 0 L-8 0Z" fill="currentColor"/>
+  </svg>
+  <div class="wrap">
+    <div class="mono coords rise">59°54′N · 010°44′E · <span data-t="kicker">Onboard companion</span></div>
+    <h1 class="rise d1" data-t="title">The horizon is not the limit.</h1>
+    <p class="lead rise d2" data-t="lead">Anchor alarm, forecast, tides, celestial navigation and a logbook that writes itself.</p>
+    <div class="ctas rise d3">
+      <a class="btn primary" href="#features" data-t="see">See what it does ↓</a>
+      <a class="btn ghost" id="heroPrivacy" href="en.html" data-t="navPrivacy">Privacy</a>
+    </div>
+    <span class="soon rise d3" data-t="soon">Coming soon to the App Store and Google Play.</span>
+  </div>
+</section>
+
+<main class="features wrap" id="features">
+  <article class="row">
+    <div class="shot"><div class="phone"><img src="img/01_anchor_watch.jpg" alt="" loading="lazy" width="414" height="896"></div></div>
+    <div><div class="mono">r = 30 m · 3 GPS fixes · 90 s</div><h2 data-t="f1t">Anchor Watch</h2><p data-t="f1d"></p></div>
+  </article>
+  <article class="row flip">
+    <div class="shot"><div class="phone"><img src="img/03_forecast.jpg" alt="" loading="lazy" width="414" height="896"></div><div class="phone"><img src="img/04_tide.jpg" alt="" loading="lazy" width="414" height="896"></div></div>
+    <div><div class="mono">Bft 4 · 11–16 kn · HW 14:12</div><h2 data-t="f2t">Forecast and tides</h2><p data-t="f2d"></p></div>
+  </article>
+  <article class="row">
+    <div class="shot"><div class="phone"><img src="img/02_map.jpg" alt="" loading="lazy" width="414" height="896"></div></div>
+    <div><div class="mono">IALA A / B · MOB</div><h2 data-t="f3t">Chart and route</h2><p data-t="f3d"></p></div>
+  </article>
+  <article class="row flip">
+    <div class="shot"><div class="phone"><img src="img/05_sextant.jpg" alt="" loading="lazy" width="414" height="896"></div><div class="phone"><img src="img/06_almanac.jpg" alt="" loading="lazy" width="414" height="896"></div></div>
+    <div><div class="mono">Ho 38°12.4′ · GHA · Dec</div><h2 data-t="f4t">Celestial navigation</h2><p data-t="f4d"></p></div>
+  </article>
+  <article class="row">
+    <div class="shot"><div class="phone"><img src="img/07_checklist.jpg" alt="" loading="lazy" width="414" height="896"></div></div>
+    <div><div class="mono">12.4 nm · max 6.8 kn · 09:00</div><h2 data-t="f5t">Logbook and maintenance</h2><p data-t="f5d"></p></div>
+  </article>
+</main>
+
+<section class="more">
+  <div class="wrap">
+    <h2 data-t="moreT">And on board</h2>
+    <div class="grid">
+      <div><div class="mono">Deckhand → Captain</div><h3 data-t="f6t">Learn to sail</h3><p data-t="f6d"></p></div>
+      <div><div class="mono">Invite only</div><h3 data-t="f7t">Fleet</h3><p data-t="f7d"></p></div>
+      <div><div class="mono">EN PT ES FR DE IT NL NO SV DA</div><h3 data-t="f8t">Ten languages</h3><p data-t="f8d"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close wrap">
+  <h2 data-t="closeT">Cast off with Timonero.</h2>
+  <span class="soon" data-t="soon">Coming soon to the App Store and Google Play.</span>
+  <p class="safety" data-t="safety"></p>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Timonero</span>
+    <a id="footPrivacy" href="en.html" data-t="footPrivacy">Privacy and terms</a>
+    <span><span data-t="contact">Contact</span>: <span class="mail">rastaita@gmail.com</span></span>
+    <span class="sp mono">N 59°54′ · E 010°44′</span>
+  </div>
+</footer>
+
+<script>
+const T = {
+  en: { name: 'English', navFeatures: 'Features', navPrivacy: 'Privacy', lang: 'Language', kicker: 'Onboard companion',
+    title: 'The horizon is not the limit.', lead: 'Anchor alarm, forecast, tides, celestial navigation and a logbook that writes itself. For sail, motor and fishing boats.',
+    see: 'See what it does ↓', soon: 'Coming soon to the App Store and Google Play.',
+    f1t: 'Anchor Watch', f1d: 'Drop the anchor, set a swing radius. If the boat drags, the alarm sounds, even with the app closed and the screen locked.',
+    f2t: 'Forecast and tides', f2d: 'Wind, gusts, waves and tide for where you are, hour by hour, with an AI read of the crossing before you leave.',
+    f3t: 'Chart and route', f3d: 'Buoys and beacons on the map, route planning, compass, speed log and one-tap man overboard.',
+    f4t: 'Celestial navigation', f4d: 'A virtual sextant that uses the phone camera, and an almanac for the Sun, Moon and stars.',
+    f5t: 'Logbook and maintenance', f5d: 'Every day at sea is logged from GPS: track, distance, top speed. Edit anything. Maintenance reminders ring like an alarm on the due date.',
+    moreT: 'And on board', f6t: 'Learn to sail', f6d: 'A course with interactive drawings, daily exercises, missions using the real wind and buoys near you, and a mock exam.',
+    f7t: 'Fleet', f7d: 'Share your position only with the boats you invite.', f8t: 'Ten languages', f8d: 'The whole app, dates and units included, follows the language you choose.',
+    closeT: 'Cast off with Timonero.', safety: 'Timonero is a support tool. Do not use it as your only source for navigation.', footPrivacy: 'Privacy and terms', contact: 'Contact' },
+  pt: { name: 'Português', navFeatures: 'Funções', navPrivacy: 'Privacidade', lang: 'Idioma', kicker: 'Companheiro de bordo',
+    title: 'O horizonte não é o limite.', lead: 'Alarme de fundeio, previsão, marés, navegação astronômica e um diário de bordo que se escreve sozinho. Para veleiro, lancha e barco de pesca.',
+    see: 'Veja o que ele faz ↓', soon: 'Em breve na App Store e no Google Play.',
+    f1t: 'Vigia do Barco', f1d: 'Lance a âncora e defina o raio de giro. Se o barco garrar, o alarme toca, mesmo com o app fechado e a tela bloqueada.',
+    f2t: 'Previsão e marés', f2d: 'Vento, rajadas, ondas e maré de onde você está, hora a hora, com uma análise da travessia por IA antes de sair.',
+    f3t: 'Carta e rota', f3d: 'Boias e faróis no mapa, planejamento de rota, bússola, registro de velocidade e homem ao mar com um toque.',
+    f4t: 'Navegação astronômica', f4d: 'Um sextante virtual com a câmera do celular e um almanaque do Sol, da Lua e dos astros.',
+    f5t: 'Diário e manutenção', f5d: 'Cada dia no mar é registrado pelo GPS: rota, distância, velocidade máxima. Tudo editável. Os lembretes de manutenção tocam como alarme no dia certo.',
+    moreT: 'E a bordo', f6t: 'Aprenda a velejar', f6d: 'Um curso com desenhos interativos, exercícios diários, missões com o vento e as boias reais perto de você e um simulado.',
+    f7t: 'Frota', f7d: 'Compartilhe sua posição só com os barcos que você convidar.', f8t: 'Dez idiomas', f8d: 'O app inteiro, com datas e unidades, segue o idioma que você escolher.',
+    closeT: 'Solte as amarras com o Timonero.', safety: 'O Timonero é uma ferramenta de apoio. Não o use como única fonte para navegar.', footPrivacy: 'Privacidade e termos', contact: 'Contato' },
+  es: { name: 'Español', navFeatures: 'Funciones', navPrivacy: 'Privacidad', lang: 'Idioma', kicker: 'Compañero a bordo',
+    title: 'El horizonte no es el límite.', lead: 'Alarma de fondeo, previsión, mareas, navegación astronómica y un cuaderno de bitácora que se escribe solo. Para velero, lancha y barco de pesca.',
+    see: 'Mira lo que hace ↓', soon: 'Próximamente en App Store y Google Play.',
+    f1t: 'Vigía del barco', f1d: 'Fondea y define el radio de borneo. Si el ancla garrea, suena la alarma, incluso con la app cerrada y la pantalla bloqueada.',
+    f2t: 'Previsión y mareas', f2d: 'Viento, rachas, olas y marea donde estás, hora a hora, con un análisis de la travesía por IA antes de salir.',
+    f3t: 'Carta y ruta', f3d: 'Boyas y balizas en el mapa, planificación de ruta, brújula, corredera y hombre al agua con un toque.',
+    f4t: 'Navegación astronómica', f4d: 'Un sextante virtual con la cámara del móvil y un almanaque del Sol, la Luna y las estrellas.',
+    f5t: 'Bitácora y mantenimiento', f5d: 'Cada día en el mar se registra por GPS: derrota, distancia, velocidad máxima. Todo editable. Los recordatorios de mantenimiento suenan como alarma en su fecha.',
+    moreT: 'Y a bordo', f6t: 'Aprende a navegar', f6d: 'Un curso con dibujos interactivos, ejercicios diarios, misiones con el viento y las boyas reales cerca de ti y un examen de prueba.',
+    f7t: 'Flota', f7d: 'Comparte tu posición solo con los barcos que invites.', f8t: 'Diez idiomas', f8d: 'Toda la app, con fechas y unidades, sigue el idioma que elijas.',
+    closeT: 'Suelta amarras con Timonero.', safety: 'Timonero es una herramienta de apoyo. No la uses como única fuente para navegar.', footPrivacy: 'Privacidad y términos', contact: 'Contacto' },
+  fr: { name: 'Français', navFeatures: 'Fonctions', navPrivacy: 'Confidentialité', lang: 'Langue', kicker: 'Compagnon de bord',
+    title: "L'horizon n'est pas la limite.", lead: "Alarme de mouillage, météo, marées, navigation astronomique et un livre de bord qui s'écrit tout seul. Pour voiliers, bateaux à moteur et de pêche.",
+    see: 'Voir ce qu’il fait ↓', soon: 'Bientôt sur l’App Store et Google Play.',
+    f1t: 'Veille au mouillage', f1d: "Mouillez et réglez le rayon d'évitage. Si l'ancre chasse, l'alarme sonne, même app fermée et écran verrouillé.",
+    f2t: 'Météo et marées', f2d: "Vent, rafales, vagues et marée là où vous êtes, heure par heure, avec une analyse de la traversée par IA avant de partir.",
+    f3t: 'Carte et route', f3d: 'Bouées et balises sur la carte, planification de route, compas, loch et homme à la mer en un geste.',
+    f4t: 'Navigation astronomique', f4d: "Un sextant virtuel avec l'appareil photo du téléphone et des éphémérides du Soleil, de la Lune et des étoiles.",
+    f5t: 'Livre de bord et entretien', f5d: "Chaque jour en mer est noté par GPS : trace, distance, vitesse max. Tout se modifie. Les rappels d'entretien sonnent comme une alarme le jour prévu.",
+    moreT: 'Et à bord', f6t: 'Apprendre la voile', f6d: "Un cours avec dessins interactifs, exercices quotidiens, missions avec le vent et les bouées réels près de vous, et un examen blanc.",
+    f7t: 'Flotte', f7d: 'Partagez votre position uniquement avec les bateaux invités.', f8t: 'Dix langues', f8d: "Toute l'app, dates et unités comprises, suit la langue choisie.",
+    closeT: 'Larguez les amarres avec Timonero.', safety: "Timonero est un outil d'aide. Ne l'utilisez pas comme seule source pour naviguer.", footPrivacy: 'Confidentialité et conditions', contact: 'Contact' },
+  de: { name: 'Deutsch', navFeatures: 'Funktionen', navPrivacy: 'Datenschutz', lang: 'Sprache', kicker: 'Begleiter an Bord',
+    title: 'Der Horizont ist nicht die Grenze.', lead: 'Ankeralarm, Wetter, Gezeiten, Astronavigation und ein Logbuch, das sich selbst schreibt. Für Segel-, Motor- und Fischerboote.',
+    see: 'Was die App kann ↓', soon: 'Bald im App Store und bei Google Play.',
+    f1t: 'Ankerwache', f1d: 'Anker werfen, Schwoikreis einstellen. Slippt der Anker, schlägt der Alarm an, auch bei geschlossener App und gesperrtem Bildschirm.',
+    f2t: 'Wetter und Gezeiten', f2d: 'Wind, Böen, Wellen und Tide für deinen Standort, Stunde für Stunde, mit einer KI-Einschätzung des Törns vor dem Ablegen.',
+    f3t: 'Karte und Route', f3d: 'Tonnen und Baken auf der Karte, Routenplanung, Kompass, Logge und Mann über Bord mit einem Tipp.',
+    f4t: 'Astronavigation', f4d: 'Ein virtueller Sextant mit der Handykamera und ein Almanach für Sonne, Mond und Sterne.',
+    f5t: 'Logbuch und Wartung', f5d: 'Jeder Tag auf See wird per GPS erfasst: Track, Distanz, Höchstgeschwindigkeit. Alles bearbeitbar. Wartungserinnerungen klingeln wie ein Wecker am Fälligkeitstag.',
+    moreT: 'Und an Bord', f6t: 'Segeln lernen', f6d: 'Ein Kurs mit interaktiven Zeichnungen, täglichen Übungen, Missionen mit echtem Wind und Tonnen in deiner Nähe und einer Probeprüfung.',
+    f7t: 'Flotte', f7d: 'Teile deine Position nur mit Booten, die du einlädst.', f8t: 'Zehn Sprachen', f8d: 'Die ganze App, samt Datum und Einheiten, folgt der gewählten Sprache.',
+    closeT: 'Leinen los mit Timonero.', safety: 'Timonero ist ein Hilfsmittel. Nutze es nicht als einzige Quelle für die Navigation.', footPrivacy: 'Datenschutz und Bedingungen', contact: 'Kontakt' },
+  it: { name: 'Italiano', navFeatures: 'Funzioni', navPrivacy: 'Privacy', lang: 'Lingua', kicker: 'Compagno di bordo',
+    title: "L'orizzonte non è il limite.", lead: "Allarme d'ancora, meteo, maree, navigazione astronomica e un giornale di bordo che si scrive da solo. Per vela, motore e pesca.",
+    see: 'Scopri cosa fa ↓', soon: 'Presto su App Store e Google Play.',
+    f1t: "Guardia all'ancora", f1d: "Dai fondo e imposta il raggio di brandeggio. Se l'ancora ara, suona l'allarme, anche con l'app chiusa e lo schermo bloccato.",
+    f2t: 'Meteo e maree', f2d: "Vento, raffiche, onde e marea dove sei, ora per ora, con un'analisi IA della traversata prima di partire.",
+    f3t: 'Carta e rotta', f3d: 'Boe e fari sulla mappa, pianificazione della rotta, bussola, solcometro e uomo a mare con un tocco.',
+    f4t: 'Navigazione astronomica', f4d: 'Un sestante virtuale con la fotocamera del telefono e un almanacco di Sole, Luna e stelle.',
+    f5t: 'Giornale e manutenzione', f5d: "Ogni giorno in mare è registrato dal GPS: traccia, distanza, velocità massima. Tutto modificabile. I promemoria di manutenzione suonano come una sveglia alla scadenza.",
+    moreT: 'E a bordo', f6t: 'Impara a navigare', f6d: 'Un corso con disegni interattivi, esercizi quotidiani, missioni con il vento e le boe reali vicino a te e una simulazione d’esame.',
+    f7t: 'Flotta', f7d: 'Condividi la tua posizione solo con le barche che inviti.', f8t: 'Dieci lingue', f8d: "Tutta l'app, date e unità comprese, segue la lingua che scegli.",
+    closeT: 'Molla gli ormeggi con Timonero.', safety: 'Timonero è uno strumento di supporto. Non usarlo come unica fonte per navigare.', footPrivacy: 'Privacy e termini', contact: 'Contatti' },
+  nl: { name: 'Nederlands', navFeatures: 'Functies', navPrivacy: 'Privacy', lang: 'Taal', kicker: 'Maatje aan boord',
+    title: 'De horizon is niet de grens.', lead: 'Ankeralarm, weer, getij, astronavigatie en een logboek dat zichzelf schrijft. Voor zeil-, motor- en vissersboten.',
+    see: 'Bekijk wat het doet ↓', soon: 'Binnenkort in de App Store en Google Play.',
+    f1t: 'Ankerwacht', f1d: 'Laat het anker vallen en stel de zwaaicirkel in. Krabt het anker, dan gaat het alarm, ook met de app dicht en het scherm vergrendeld.',
+    f2t: 'Weer en getij', f2d: 'Wind, vlagen, golven en getij waar je bent, uur voor uur, met een AI-analyse van de oversteek voor vertrek.',
+    f3t: 'Kaart en route', f3d: 'Boeien en bakens op de kaart, routeplanning, kompas, log en man-over-boord met één tik.',
+    f4t: 'Astronavigatie', f4d: 'Een virtuele sextant met de camera van je telefoon en een almanak voor zon, maan en sterren.',
+    f5t: 'Logboek en onderhoud', f5d: 'Elke dag op zee wordt via gps vastgelegd: track, afstand, topsnelheid. Alles aan te passen. Onderhoudsherinneringen gaan af als een wekker op de vervaldatum.',
+    moreT: 'En aan boord', f6t: 'Leren zeilen', f6d: 'Een cursus met interactieve tekeningen, dagelijkse oefeningen, missies met de echte wind en boeien bij jou in de buurt en een proefexamen.',
+    f7t: 'Vloot', f7d: 'Deel je positie alleen met de boten die je uitnodigt.', f8t: 'Tien talen', f8d: 'De hele app, inclusief datums en eenheden, volgt de taal die je kiest.',
+    closeT: 'Gooi los met Timonero.', safety: 'Timonero is een hulpmiddel. Gebruik het niet als enige bron voor navigatie.', footPrivacy: 'Privacy en voorwaarden', contact: 'Contact' },
+  no: { name: 'Norsk', navFeatures: 'Funksjoner', navPrivacy: 'Personvern', lang: 'Språk', kicker: 'Følgesvenn om bord',
+    title: 'Horisonten er ikke grensen.', lead: 'Ankeralarm, værvarsel, tidevann, astronavigasjon og en loggbok som skriver seg selv. For seilbåt, motorbåt og fiskebåt.',
+    see: 'Se hva den gjør ↓', soon: 'Kommer snart til App Store og Google Play.',
+    f1t: 'Ankervakt', f1d: 'Slipp ankeret og velg svingradius. Hvis ankeret drar, går alarmen, også med appen lukket og skjermen låst.',
+    f2t: 'Vær og tidevann', f2d: 'Vind, kast, bølger og tidevann der du er, time for time, med en KI-vurdering av turen før du legger ut.',
+    f3t: 'Kart og rute', f3d: 'Bøyer og merker på kartet, ruteplanlegging, kompass, logg og mann over bord med ett trykk.',
+    f4t: 'Astronavigasjon', f4d: 'En virtuell sekstant med mobilkameraet og en almanakk for sol, måne og stjerner.',
+    f5t: 'Loggbok og vedlikehold', f5d: 'Hver dag på sjøen logges med GPS: spor, distanse, toppfart. Alt kan endres. Vedlikeholdspåminnelser ringer som en alarm på forfallsdagen.',
+    moreT: 'Og om bord', f6t: 'Lær å seile', f6d: 'Et kurs med interaktive tegninger, daglige øvelser, oppdrag med ekte vind og bøyer nær deg og en prøveeksamen.',
+    f7t: 'Flåte', f7d: 'Del posisjonen din bare med båtene du inviterer.', f8t: 'Ti språk', f8d: 'Hele appen, med datoer og enheter, følger språket du velger.',
+    closeT: 'Kast loss med Timonero.', safety: 'Timonero er et hjelpemiddel. Ikke bruk det som eneste kilde for navigasjon.', footPrivacy: 'Personvern og vilkår', contact: 'Kontakt' },
+  sv: { name: 'Svenska', navFeatures: 'Funktioner', navPrivacy: 'Integritet', lang: 'Språk', kicker: 'Följeslagare ombord',
+    title: 'Horisonten är inte gränsen.', lead: 'Ankarlarm, väder, tidvatten, astronavigering och en loggbok som skriver sig själv. För segelbåt, motorbåt och fiskebåt.',
+    see: 'Se vad den gör ↓', soon: 'Snart i App Store och Google Play.',
+    f1t: 'Ankarvakt', f1d: 'Släpp ankaret och välj svajradie. Om ankaret släpar går larmet, även när appen är stängd och skärmen låst.',
+    f2t: 'Väder och tidvatten', f2d: 'Vind, byar, vågor och tidvatten där du är, timme för timme, med en AI-bedömning av överfarten innan du kastar loss.',
+    f3t: 'Sjökort och rutt', f3d: 'Bojar och prickar på kartan, ruttplanering, kompass, logg och man över bord med ett tryck.',
+    f4t: 'Astronavigering', f4d: 'En virtuell sextant med mobilkameran och en almanacka för sol, måne och stjärnor.',
+    f5t: 'Loggbok och underhåll', f5d: 'Varje dag till sjöss loggas via GPS: spår, distans, toppfart. Allt går att ändra. Underhållspåminnelser ringer som ett larm på förfallodagen.',
+    moreT: 'Och ombord', f6t: 'Lär dig segla', f6d: 'En kurs med interaktiva teckningar, dagliga övningar, uppdrag med verklig vind och bojar nära dig och ett övningsprov.',
+    f7t: 'Flotta', f7d: 'Dela din position bara med båtarna du bjuder in.', f8t: 'Tio språk', f8d: 'Hela appen, med datum och enheter, följer språket du väljer.',
+    closeT: 'Kasta loss med Timonero.', safety: 'Timonero är ett hjälpmedel. Använd det inte som enda källa för navigering.', footPrivacy: 'Integritet och villkor', contact: 'Kontakt' },
+  da: { name: 'Dansk', navFeatures: 'Funktioner', navPrivacy: 'Privatliv', lang: 'Sprog', kicker: 'Følgesvend om bord',
+    title: 'Horisonten er ikke grænsen.', lead: 'Ankeralarm, vejr, tidevand, astronavigation og en logbog, der skriver sig selv. Til sejlbåd, motorbåd og fiskerbåd.',
+    see: 'Se hvad den kan ↓', soon: 'Kommer snart i App Store og Google Play.',
+    f1t: 'Ankervagt', f1d: 'Kast anker og vælg svajeradius. Hvis ankeret slipper, lyder alarmen, også med appen lukket og skærmen låst.',
+    f2t: 'Vejr og tidevand', f2d: 'Vind, vindstød, bølger og tidevand der hvor du er, time for time, med en AI-vurdering af overfarten før du kaster los.',
+    f3t: 'Søkort og rute', f3d: 'Bøjer og sømærker på kortet, ruteplanlægning, kompas, log og mand over bord med ét tryk.',
+    f4t: 'Astronavigation', f4d: 'En virtuel sekstant med mobilens kamera og en almanak for sol, måne og stjerner.',
+    f5t: 'Logbog og vedligehold', f5d: 'Hver dag på vandet logges med GPS: spor, distance, topfart. Alt kan rettes. Vedligeholdspåmindelser ringer som en alarm på forfaldsdagen.',
+    moreT: 'Og om bord', f6t: 'Lær at sejle', f6d: 'Et kursus med interaktive tegninger, daglige øvelser, missioner med rigtig vind og bøjer nær dig og en prøveeksamen.',
+    f7t: 'Flåde', f7d: 'Del din position kun med de både, du inviterer.', f8t: 'Ti sprog', f8d: 'Hele appen, med datoer og enheder, følger det sprog, du vælger.',
+    closeT: 'Kast los med Timonero.', safety: 'Timonero er et hjælpeværktøj. Brug det ikke som eneste kilde til navigation.', footPrivacy: 'Privatliv og vilkår', contact: 'Kontakt' },
+};
+const LEGAL = ['pt', 'en', 'no', 'sv', 'da'];
+const sel = document.getElementById('lang');
+for (const [k, v] of Object.entries(T)) sel.add(new Option(v.name, k));
+
+function apply(l) {
+  const d = T[l];
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-t]').forEach((el) => { const v = d[el.dataset.t]; if (v != null) el.textContent = v; });
+  const legal = (LEGAL.includes(l) ? l : 'en') + '.html';
+  for (const id of ['navPrivacy', 'heroPrivacy', 'footPrivacy']) document.getElementById(id).href = legal;
+  sel.value = l;
+}
+const pick = () => {
+  try { const s = localStorage.getItem('timonero_lang'); if (T[s]) return s; } catch {}
+  for (const n of navigator.languages || [navigator.language]) {
+    const c = String(n).slice(0, 2).toLowerCase();
+    if (c === 'nb' || c === 'nn') return 'no';
+    if (T[c]) return c;
+  }
+  return 'en';
+};
+sel.addEventListener('change', () => { apply(sel.value); try { localStorage.setItem('timonero_lang', sel.value); } catch {} });
+apply(pick());
+
+// compass rose: ticks every 10°, turns slowly with scroll
+const ticks = document.getElementById('ticks');
+for (let a = 0; a < 360; a += 10) {
+  const r = (a * Math.PI) / 180, l = a % 90 === 0 ? 74 : a % 30 === 0 ? 78 : 81;
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  p.setAttribute('x1', Math.sin(r) * l); p.setAttribute('y1', -Math.cos(r) * l);
+  p.setAttribute('x2', Math.sin(r) * 84); p.setAttribute('y2', -Math.cos(r) * 84);
+  ticks.appendChild(p);
+}
+const rose = document.getElementById('rose');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!still) addEventListener('scroll', () => rose.style.setProperty('--rot', `${scrollY * 0.06}deg`), { passive: true });
+
+// sea: three swell layers and a small sloop riding the front one
+const cv = document.getElementById('sea'), cx = cv.getContext('2d');
+let W = 0, H = 0;
+const size = () => { const r = cv.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const layers = [
+  { y: 0.80, amp: 7, len: 260, sp: 0.18, a: 0.22 },
+  { y: 0.86, amp: 10, len: 340, sp: 0.28, a: 0.35 },
+  { y: 0.93, amp: 13, len: 420, sp: 0.42, a: 1 },
+];
+const wave = (L, x, t) => H * L.y + Math.sin(x / L.len * 2 * Math.PI + t * L.sp) * L.amp + Math.sin(x / (L.len * 0.43) + t * L.sp * 1.7) * L.amp * 0.35;
+function draw(t) {
+  cx.clearRect(0, 0, W, H);
+  const light = css('--on-sea'), deep = css('--paper'), brass = css('--brass-hi');
+  cx.fillStyle = light;
+  for (let i = 0; i < 46; i++) { const sx = (i * 97.3) % W, sy = (i * 53.1) % (H * 0.5); cx.globalAlpha = 0.15 + 0.25 * Math.abs(Math.sin(t * 0.6 + i)); cx.fillRect(sx, sy, 1.6, 1.6); }
+  layers.forEach((L, i) => {
+    cx.beginPath(); cx.moveTo(0, H);
+    for (let x = 0; x <= W + 8; x += 8) cx.lineTo(x, wave(L, x, t));
+    cx.lineTo(W, H); cx.closePath();
+    // the front swell is filled with the page colour so the hero melts into the page below
+    cx.fillStyle = i === 2 ? deep : light; cx.globalAlpha = i === 2 ? 1 : L.a * 0.25; cx.fill();
+  });
+  cx.globalAlpha = 1;
+  const L = layers[2], bx = W * 0.72, by = wave(L, bx, t), slope = (wave(L, bx + 6, t) - wave(L, bx - 6, t)) / 12;
+  cx.save(); cx.translate(bx, by - 2); cx.rotate(Math.atan(slope));
+  cx.fillStyle = brass;
+  cx.beginPath(); cx.moveTo(-26, -4); cx.lineTo(26, -4); cx.lineTo(18, 5); cx.lineTo(-20, 5); cx.closePath(); cx.fill();
+  cx.fillStyle = light;
+  cx.fillRect(-1, -58, 2, 54);
+  cx.beginPath(); cx.moveTo(2, -56); cx.lineTo(2, -8); cx.lineTo(24, -8); cx.closePath(); cx.fill();
+  cx.globalAlpha = 0.75; cx.beginPath(); cx.moveTo(-2, -52); cx.lineTo(-2, -8); cx.lineTo(-20, -8); cx.closePath(); cx.fill(); cx.globalAlpha = 1;
+  cx.fillStyle = brass; cx.beginPath(); cx.arc(0, -60, 2.4, 0, 7); cx.fill();
+  cx.restore();
+}
+size(); addEventListener('resize', () => { size(); if (still) draw(0); });
+if (still) draw(0); else (function loop(ms) { draw(ms / 1000); requestAnimationFrame(loop); })(0);
+</script>
+</body>
+</html>
